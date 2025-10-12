@@ -1,6 +1,7 @@
 package roll
 
 import (
+        "fmt"
         "math/rand"
         "strconv"
         "time"
