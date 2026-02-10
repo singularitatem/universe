@@ -10,6 +10,9 @@ bazel_dep(name = "gazelle", version = "0.34.0")
 # https://github.com/bazelbuild/rules_python/releases.
 bazel_dep(name = "rules_python", version = "0.26.0")
 
+# https://github.com/bazelbuild/rules_rust/releases
+bazel_dep(name = "rules_rust", version = "0.56.0")
+
 # https://github.com/bazelbuild/rules_python/blob/main/docs/sphinx/pypi-dependencies.md#using-dependencies-from-pypi
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
