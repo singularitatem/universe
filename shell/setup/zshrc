@@ -1,0 +1,45 @@
+PATH=$PATH:/opt/homebrew/bin:$HOME/.local/bin
+
+#exports
+## Open Router
+export OPENROUTER_API_KEY=<REDACTED>
+export OPENROUTER_HTTP_REFERER="http://localhost"
+export OPENROUTER_APP_NAME="openclaw"
+
+# common
+alias c=clear
+alias u='cd ~/dev/universe'
+alias z='source ~/.zshrc'
+alias oc='openclaw'
+alias homebrew=brew
+
+# auto completion
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+
+# Prompt
+parse_git_branch() {
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+setopt prompt_subst
+PROMPT='%F{white}%~%f %F{green}($(parse_git_branch))%f '
+
+# git commands
+alias gb='git branch'
+alias gs='git status'
+alias gdf='git diff'
+alias gad='git add .'
+alias gpl='git pull'
+alias gph='git push'
+alias gck='git checkout'
+alias gcm='git checkout -m '
+alias glg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
+
