@@ -1,2 +1,5 @@
 # Enable bzlmod
 common --enable_bzlmod
+
+# Fix CARGO_MANIFEST_DIR for cargo build scripts
+build --@rules_rust//cargo:incompatible_runfiles_cargo_manifest_dir=true

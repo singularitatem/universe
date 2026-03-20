@@ -12,6 +12,30 @@ bazel_dep(name = "rules_python", version = "0.26.0")
 
 # https://github.com/bazelbuild/rules_rust/releases
 bazel_dep(name = "rules_rust", version = "0.56.0")
+bazel_dep(name = "bazel_skylib", version = "1.5.0")
+bazel_dep(name = "platforms", version = "0.0.8")
+
+# Rust toolchain
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(edition = "2021")
+use_repo(rust, "rust_toolchains")
+register_toolchains("@rust_toolchains//:all")
+
+# Rust crate dependencies
+crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+crate.from_cargo(
+    name = "crates",
+    cargo_lockfile = "//ui/rust:Cargo.lock",
+    manifests = ["//ui/rust:Cargo.toml"],
+)
+
+crate.from_cargo(
+    name = "nanopay_crates",
+    cargo_lockfile = "//rust:Cargo.lock",
+    manifests = ["//rust:Cargo.toml"],
+)
+use_repo(crate, "nanopay_crates")
+use_repo(crate, "crates")
 
 # https://github.com/bazelbuild/rules_python/blob/main/docs/sphinx/pypi-dependencies.md#using-dependencies-from-pypi
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")

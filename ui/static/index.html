@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask Me</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; background: #f8f9fa;
+  }
+  .container { text-align: center; width: 500px; }
+  h1 { font-size: 3rem; margin-bottom: 2rem; color: #202124; }
+  .search-box {
+    display: flex; padding: 10px 16px;
+    background: #fff; border: 1px solid #dfe1e5; border-radius: 24px;
+    box-shadow: 0 1px 6px rgba(32,33,36,.12);
+  }
+  .search-box:focus-within { box-shadow: 0 1px 6px rgba(32,33,36,.28); }
+  input {
+    flex: 1; border: none; outline: none; font-size: 16px;
+    background: transparent;
+  }
+  button {
+    padding: 8px 20px; border: none; border-radius: 16px;
+    background: #4285f4; color: #fff; font-size: 14px;
+    cursor: pointer;
+  }
+  button:hover { background: #3367d6; }
+  .answer {
+    margin-top: 2rem; padding: 1.5rem;
+    background: #fff; border-radius: 12px;
+    border: 1px solid #dfe1e5; text-align: left;
+    display: none; font-size: 15px; line-height: 1.6; color: #3c4043;
+  }
+  .answer.visible { display: block; }
+  .label { font-weight: 600; margin-bottom: 0.5rem; color: #202124; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Ask Me</h1>
+  <form class="search-box" id="form">
+    <input type="text" id="q" placeholder="Type your message..." autofocus>
+    <button type="submit">Ask</button>
+  </form>
+  <div class="answer" id="answer">
+    <div class="label">Answer</div>
+    <div id="text"></div>
+  </div>
+</div>
+<script>
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const q = document.getElementById("q").value.trim();
+  if (!q) return;
+  const res = await fetch("/ask?q=" + encodeURIComponent(q));
+  const data = await res.text();
+  document.getElementById("text").textContent = data;
+  document.getElementById("answer").classList.add("visible");
+});
+</script>
+</body>
+</html>

@@ -1,6 +1,22 @@
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 
 rust_binary(
-    name = "hello",
-    srcs = ["src/main.rs"],
+    name = "nanopay",
+    srcs = glob(["src/**/*.rs"]),
+    deps = [
+        "@nanopay_crates//:anyhow",
+        "@nanopay_crates//:axum",
+        "@nanopay_crates//:clap",
+        "@nanopay_crates//:dotenvy",
+        "@nanopay_crates//:hex",
+        "@nanopay_crates//:reqwest",
+        "@nanopay_crates//:serde",
+        "@nanopay_crates//:serde_json",
+        "@nanopay_crates//:thiserror",
+        "@nanopay_crates//:tokio",
+        "@nanopay_crates//:tracing",
+        "@nanopay_crates//:tracing-subscriber",
+        "@nanopay_crates//:uuid",
+        "@nanopay_crates//:alloy",
+    ],
 )
