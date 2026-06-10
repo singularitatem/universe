@@ -1,1 +1,7 @@
-pandas
+beautifulsoup4
+httpx
+certifi
+charset-normalizer
+idna
+requests
+urllib3
